@@ -352,8 +352,23 @@
 							
 							
 
-					</div>
-
+					</di 
+curl https://api.openai.com/v1/audio/translations \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: multipart/form-data" \
+  -F file="@/path/to/file/german.m4a" \
+  -F model="whisper-1"
+{
+  "file": "german.m4a",
+  "model": "whisper-1"
+}
+{
+  "text": "Hello, my name is Wolfgang and I come from Germany. Where are you heading today?"
+}
+									
+									
+									
+									
 				<!-- Footer -->
 					<footer id="footer">
 						
