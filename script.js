@@ -89,5 +89,27 @@ const response = await fetch("https://your-backend-url.com/chat", {
     },
     body: JSON.stringify({ prompt: userInput })
 });
+try {
+    const response = await fetch("https://your-backend-url/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt: userInput })
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch from the backend");
+    }
+
+    const data = await response.json();
+    const botResponse = data.response || "Error: Unable to get a response from the server.";
+    chatbox.innerHTML += `<div style="color: white;"><strong>AI:</strong> ${botResponse}</div>`;
+    chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
+} catch (error) {
+    console.error("Error:", error);
+    chatbox.innerHTML += `<div style="color: white; color: red;"><strong>Error:</strong> ${error.message}</div>`;
+}
+
 
 
