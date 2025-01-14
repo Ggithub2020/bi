@@ -82,5 +82,12 @@ async function sendMessage() {
         chatbox.innerHTML += `<div style="color: red;"><strong>Error:</strong> Unable to connect to the AI server.</div>`;
     }
 }
+const response = await fetch("https://your-backend-url.com/chat", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ prompt: userInput })
+});
 
 
