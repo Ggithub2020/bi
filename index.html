@@ -33,7 +33,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<a href="index.html" class="logo">Business Intelligence|SQL|Power BI|DAX|Data Analytics</a>
+						<a href="index.html" class="logo">Azure | Microsoft Fabric | Power BI | Power Platform | Power Apps | Power Automate | Data Analytics | AI | Business Intelligence</a>
 					</header>
                      
 				<!-- Nav -->
@@ -80,7 +80,7 @@
 																		<header class="main">
 																			<h2><a href="small ">My Name is Girum</a></h2>
 										<p><a href="https://www.linkedin.com/in/girumbi/" class="image small"><img src="https://user-images.githubusercontent.com/73087775/235034137-99865ad3-8b0e-41f4-a010-9e45b766b6fa.jpg" width="120" height="150" alt="" /></a>
-											As a certified Microsoft professional, I possess certifications in Power BI, Fabric, and various Microsoft fundamentals, demonstrating my technical expertise and commitment to staying current with industry standards. These credentials highlight my proficiency in data analytics, business intelligence, and innovative technologies, which I leverage to deliver impactful solutions.</p>
+											As a Microsoft-certified professional, I have earned certifications in Power BI, Fabric, and multiple Microsoft fundamental certifications, reflecting my expertise in data analytics and business intelligence. These qualifications highlight my dedication to maintaining up-to-date knowledge of industry standards, empowering me to develop innovative solutions and drive meaningful results.</p>
 										
 										<p>Beyond technical skills, I bring strong interpersonal and communication abilities, enabling effective collaboration in cross-functional teams. Passionate about continuous professional growth, I remain dedicated to expanding my knowledge in the fast-paced technology landscape while driving success and innovation in every project I undertake.</p>
 										
@@ -465,16 +465,49 @@
 	  
 		  // Check for greetings and respond with a random greeting
 		  if (/hello|hi|hey/i.test(userInput)) {
-			botResponse = greetings[Math.floor(Math.random() * greetings.length)];
-		  } else if (/power bi/i.test(userInput)) {
-			botResponse = "Power BI is a data visualization and business intelligence tool by Microsoft. How can I assist you with it?";
-		  } else if (/what is ai/i.test(userInput)) {
-			botResponse = "AI (Artificial Intelligence) refers to the simulation of human intelligence in machines.";
-		  } else if (/data warehouse/i.test(userInput)) {
-			botResponse = "A Data Warehouse is a central repository for storing and analyzing large amounts of data.";
-		  } else {
-			botResponse = "Sorry, I didn't quite understand that. Could you please rephrase?";
-		  }
+    botResponse = greetings[Math.floor(Math.random() * greetings.length)];
+} else if (/power bi/i.test(userInput)) {
+    botResponse = "Power BI is a data visualization and business intelligence tool by Microsoft. It allows you to connect to various data sources, create interactive reports and dashboards. How can I assist you with Power BI today? For more details, check the official site: [Power BI Overview](https://powerbi.microsoft.com/).";
+} else if (/what is power bi/i.test(userInput)) {
+    botResponse = "Power BI is a suite of business analytics tools to analyze data and share insights. It enables you to create reports and dashboards that can be accessed by users across the organization. Learn more about Power BI here: [What is Power BI?](https://powerbi.microsoft.com/en-us/what-is-power-bi/)";
+} else if (/power bi desktop/i.test(userInput)) {
+    botResponse = "Power BI Desktop is a free, powerful tool for creating reports and visualizations on your local computer. You can download it here: [Power BI Desktop](https://powerbi.microsoft.com/en-us/desktop/)";
+} else if (/power bi service/i.test(userInput)) {
+    botResponse = "Power BI Service is a cloud-based service that allows you to publish, share, and collaborate on reports and dashboards. It's an integral part of the Power BI ecosystem. Find out more here: [Power BI Service](https://powerbi.microsoft.com/en-us/power-bi-service/)";
+} else if (/dax/i.test(userInput)) {
+    botResponse = "DAX (Data Analysis Expressions) is a formula language used in Power BI, Power Pivot, and SSAS to define custom calculations. For learning DAX, check this guide: [DAX Basics](https://docs.microsoft.com/en-us/dax/dax-guide/)";
+} else if (/power query/i.test(userInput)) {
+    botResponse = "Power Query is a data connection technology that enables you to discover, connect, and combine data from different sources. Learn more about Power Query here: [Power Query Documentation](https://docs.microsoft.com/en-us/power-query/)";
+} else if (/power apps/i.test(userInput)) {
+    botResponse = "Power Apps is part of the Power Platform, allowing users to create custom business applications with no or low code. Check out more about Power Apps here: [Power Apps Overview](https://powerapps.microsoft.com/)";
+} else if (/power automate/i.test(userInput)) {
+    botResponse = "Power Automate helps automate repetitive tasks and workflows. It's also part of the Power Platform. Learn more here: [Power Automate Overview](https://flow.microsoft.com/)";
+} else if (/microsoft fabric/i.test(userInput)) {
+    botResponse = "Microsoft Fabric is a unified data platform that allows collaboration across various data disciplines. It integrates tools for data engineering, data science, and business analytics. More details here: [Microsoft Fabric Overview](https://www.microsoft.com/en-us/fabric)";
+} else if (/data model/i.test(userInput)) {
+    botResponse = "In Power BI, a data model represents how data is structured and related in reports. A good data model ensures accurate and optimized reporting. Learn more about data models here: [Data Models in Power BI](https://docs.microsoft.com/en-us/power-bi/desktop-data-modeling)";
+} else if (/data visualization/i.test(userInput)) {
+    botResponse = "Data visualization is the graphical representation of data and insights. Power BI offers a wide range of visualization types to help you communicate your data effectively. Check out available visualizations here: [Power BI Visualizations](https://docs.microsoft.com/en-us/power-bi/visuals/desktop-visualization-types)";
+} else if (/report sharing/i.test(userInput)) {
+    botResponse = "Power BI allows you to share reports with others by publishing to the Power BI Service. You can share them via email, embedding, or sharing links. Learn more here: [Share Power BI Reports](https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-share-dashboards)";
+} else if (/dashboard/i.test(userInput)) {
+    botResponse = "A Power BI Dashboard is a single-page view of your data, built from multiple visualizations. Dashboards help you keep track of key metrics. Learn more about dashboards here: [Create Power BI Dashboards](https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboards)";
+} else if (/power bi pro/i.test(userInput)) {
+    botResponse = "Power BI Pro is a paid version of Power BI that offers advanced collaboration, sharing, and governance features. You can learn more about Power BI Pro here: [Power BI Pro Features](https://powerbi.microsoft.com/en-us/pricing/)";
+} else if (/power bi premium/i.test(userInput)) {
+    botResponse = "Power BI Premium offers enhanced performance, scalability, and governance capabilities. It's designed for large-scale deployments. Find more information here: [Power BI Premium](https://powerbi.microsoft.com/en-us/premium/)";
+} else if (/query folding/i.test(userInput)) {
+    botResponse = "Query folding is the process where Power Query transforms the steps you apply on your data into a series of queries that run against the data source, improving performance. Learn more here: [Query Folding in Power BI](https://docs.microsoft.com/en-us/power-query/handle-query-folding)";
+} else if (/row-level security/i.test(userInput)) {
+    botResponse = "Row-Level Security (RLS) in Power BI allows you to restrict data access for specific users based on filters applied to data models. Learn more about RLS here: [Row-Level Security in Power BI](https://docs.microsoft.com/en-us/power-bi/admin/rls)";
+} else if (/power bi gateway/i.test(userInput)) {
+    botResponse = "Power BI Gateway is used to transfer data securely between on-premises data sources and the Power BI service. More about gateways here: [Power BI Gateway](https://docs.microsoft.com/en-us/power-bi/connect-data/service-gateway-onprem)";
+} else if (/data refresh/i.test(userInput)) {
+    botResponse = "Power BI supports automatic data refresh for datasets in Power BI Service, ensuring your reports are up to date. Learn how to set it up here: [Data Refresh in Power BI](https://docs.microsoft.com/en-us/power-bi/connect-data/service-gateway-refresh-data)";
+} else {
+    botResponse = "Sorry, I didn't quite understand that. Could you please rephrase? I'm here to help with anything about Power BI, Power BI Service, or Microsoft Fabric.";
+}
+
 	  
 		  // Display bot's response
 		  chatbox.innerHTML += `<div style="color: white;"><strong>${botName}:</strong> ${botResponse}</div>`;
