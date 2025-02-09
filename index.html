@@ -534,9 +534,13 @@
 			} else if (/microsoft fabric updates/i.test(userInput)) {
 				botResponse = "Stay informed on Microsoft Fabric updates at: <a href='https://azure.microsoft.com/en-us/updates/'>Azure Updates</a>.";
 			} 
-			// Fallback response with additional links
+			// Fallback response with misspelling check
 			else {
-				botResponse = "Sorry, I didn't quite understand that. For more info on Power BI, please visit <a href='https://powerbi.microsoft.com/'>Power BI Official Site</a> or for Microsoft Fabric details, check <a href='https://azure.microsoft.com/en-us/products/service-fabric/'>Microsoft Fabric</a>.";
+				if (/miespaled|mispelled|mispeled/i.test(userInput)) {
+					botResponse = "Can you please write correctly?";
+				} else {
+					botResponse = "I don't have an answer for this.";
+				}
 			}
 		  
 			// Display bot's response
@@ -552,4 +556,12 @@
 				chatbox.scrollTop = chatbox.scrollHeight;
 			}, 60000); // Timeout of 1 minute
 		}
+	  
+		// Listen for Enter key press to send a message
+		document.getElementById("user-input").addEventListener("keydown", function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				sendMessage();
+			}
+		});
 	</script>
