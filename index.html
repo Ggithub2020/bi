@@ -434,60 +434,122 @@
 	  
 	  <script>
 		let timeout;
-	  
+		  
 		async function sendMessage() {
-		  const chatbox = document.getElementById("chatbox");
-		  const userInput = document.getElementById("user-input").value;
-		  const botName = "GirAI";  // Chatbot name
-	  
-		  if (!userInput.trim()) {
-			alert("Please type a message.");
-			return;
-		  }
-	  
-		  // Display user's message
-		  chatbox.innerHTML += `<div style="color: white;"><strong>You:</strong> ${userInput}</div>`;
-	  
-		  // Clear the input field
-		  document.getElementById("user-input").value = "";
-	  
-		  // Define response for greetings
-		  const greetings = [
-			"Hi there! How can I assist you today?",
-			"Hello! How are you today?",
-			"Hi! How can I help you?",
-			"Hello there! Do you have any questions about Power BI?",
-			"Hey! How can I assist you with Business Intelligence today?"
-		  ];
-	  
-		  // Define default responses
-		  let botResponse = "";
-	  
-		  // Check for greetings and respond with a random greeting
-		  if (/hello|hi|hey/i.test(userInput)) {
-			botResponse = greetings[Math.floor(Math.random() * greetings.length)];
-		  } else if (/power bi/i.test(userInput)) {
-			botResponse = "Power BI is a data visualization and business intelligence tool by Microsoft. How can I assist you with it?";
-		  } else if (/what is ai/i.test(userInput)) {
-			botResponse = "AI (Artificial Intelligence) refers to the simulation of human intelligence in machines.";
-		  } else if (/data warehouse/i.test(userInput)) {
-			botResponse = "A Data Warehouse is a central repository for storing and analyzing large amounts of data.";
-		  } else {
-			botResponse = "Sorry, I didn't quite understand that. Could you please rephrase?";
-		  }
-	  
-		  // Display bot's response
-		  chatbox.innerHTML += `<div style="color: white;"><strong>${botName}:</strong> ${botResponse}</div>`;
-	  
-		  // Scroll to the bottom
-		  chatbox.scrollTop = chatbox.scrollHeight;
-	  
-		  // Clear previous timeout and set a new one for goodbye
-		  clearTimeout(timeout);
-		  timeout = setTimeout(() => {
-			chatbox.innerHTML += `<div style="color: white;"><strong>${botName}:</strong> Goodbye! Feel free to visit again for Power BI questions or anything else.</div>`;
+			const chatbox = document.getElementById("chatbox");
+			const userInput = document.getElementById("user-input").value;
+			const botName = "GirAI";  // Chatbot name
+		  
+			if (!userInput.trim()) {
+				alert("Please type a message.");
+				return;
+			}
+		  
+			// Display user's message
+			chatbox.innerHTML += `<div style="color: white;"><strong>You:</strong> ${userInput}</div>`;
+		  
+			// Clear the input field
+			document.getElementById("user-input").value = "";
+		  
+			// Define response for greetings and friendly phrases
+			const greetings = [
+				"Hi there! How can I assist you today?",
+				"Hello! How are you doing?",
+				"Hey! What can I help you with?",
+				"Hi! Great to see you. How can I be of assistance?"
+			];
+		  
+			// Define default responses
+			let botResponse = "";
+		  
+			// Customized responses for various friendly keywords
+			if (/^(hi|hello|hey)\b/i.test(userInput)) {
+				botResponse = greetings[Math.floor(Math.random() * greetings.length)];
+			} else if (/bye|goodbye|see you/i.test(userInput)) {
+				botResponse = "Goodbye! It was a pleasure assisting you. See you next time!";
+			} else if (/thanks|thank you/i.test(userInput)) {
+				botResponse = "You're welcome! Happy to help.";
+			} else if (/help me/i.test(userInput)) {
+				botResponse = "Of course! I'm here to help. What do you need assistance with?";
+			} else if (/do you know/i.test(userInput)) {
+				botResponse = "I might! Feel free to ask me anything about Power BI or Microsoft Fabric.";
+			} 
+			// Existing Power BI and Fabric responses
+			else if (/power bi(?!.*dashboard)/i.test(userInput)) {
+				botResponse = "Power BI is a powerful tool for data visualization and business intelligence. For an overview, visit: <a href='https://powerbi.microsoft.com/en-us/overview/'>Power BI Overview</a>.";
+			} else if (/what is ai/i.test(userInput)) {
+				botResponse = "AI (Artificial Intelligence) refers to machines mimicking human intelligence. You can explore its role in analytics here: <a href='https://azure.microsoft.com/en-us/overview/ai-platform/'>Microsoft AI</a>.";
+			} else if (/data warehouse/i.test(userInput)) {
+				botResponse = "A Data Warehouse is a central repository for storing and analyzing data. Learn more: <a href='https://learn.microsoft.com/en-us/azure/architecture/data-guide/relational-data/modern-data-warehouse'>Modern Data Warehouse</a>.";
+			} else if (/power bi dashboard/i.test(userInput)) {
+				botResponse = "For eye-catching dashboards, check out these examples: <a href='https://powerbi.microsoft.com/en-us/dashboard-examples/'>Dashboard Examples</a>.";
+			} else if (/power bi report/i.test(userInput)) {
+				botResponse = "Explore interactive reports in Power BI at: <a href='https://powerbi.microsoft.com/en-us/report-builder/'>Power BI Report Builder</a>.";
+			} else if (/power bi pricing/i.test(userInput)) {
+				botResponse = "Find the latest pricing details for Power BI here: <a href='https://powerbi.microsoft.com/en-us/pricing/'>Power BI Pricing</a>.";
+			} else if (/power bi certification/i.test(userInput)) {
+				botResponse = "Microsoft offers certifications to validate your Power BI skills. View options: <a href='https://docs.microsoft.com/en-us/learn/certifications/browse/'>Microsoft Certifications</a>.";
+			} else if (/power bi training/i.test(userInput)) {
+				botResponse = "Enhance your skills with online training on Power BI here: <a href='https://www.microsoft.com/en-us/learning/power-bi-training.aspx'>Power BI Training</a>.";
+			} else if (/power bi mobile/i.test(userInput)) {
+				botResponse = "Power BI also offers mobile apps for on-the-go insights. Get more info: <a href='https://powerbi.microsoft.com/en-us/mobile/'>Power BI Mobile</a>.";
+			} else if (/power bi community/i.test(userInput)) {
+				botResponse = "Join the vibrant Power BI community for discussions and tips: <a href='https://community.powerbi.com/'>Power BI Community</a>.";
+			} else if (/power bi troubleshooting/i.test(userInput)) {
+				botResponse = "For troubleshooting and best practices, visit: <a href='https://docs.microsoft.com/en-us/power-bi/troubleshoot/'>Power BI Troubleshooting</a>.";
+			} else if (/microsoft fabric/i.test(userInput)) {
+				botResponse = "Microsoft Fabric is a unified data analytics platform. Learn more at: <a href='https://azure.microsoft.com/en-us/products/service-fabric/'>Microsoft Fabric Overview</a>.";
+			} else if (/fabric pricing/i.test(userInput)) {
+				botResponse = "Find out about Microsoft Fabric pricing and licensing details at the official site: <a href='https://azure.microsoft.com/en-us/pricing/details/service-fabric/'>Fabric Pricing</a>.";
+			} else if (/fabric integration/i.test(userInput)) {
+				botResponse = "Microsoft Fabric integrates with various Azure services. See integration details: <a href='https://docs.microsoft.com/en-us/azure/service-fabric/'>Fabric Integration</a>.";
+			} else if (/fabric case study/i.test(userInput)) {
+				botResponse = "Check out real-world applications of Microsoft Fabric here: <a href='https://customers.microsoft.com/en-us/story/'>Microsoft Fabric Case Studies</a>.";
+			} else if (/fabric vs power bi/i.test(userInput)) {
+				botResponse = "Both Power BI and Microsoft Fabric offer analytics solutions, but they focus on different aspects. Read more about their differences: <a href='https://powerbi.microsoft.com/en-us/blog/'>Microsoft Fabric vs Power BI</a>.";
+			} else if (/power bi updates/i.test(userInput)) {
+				botResponse = "Stay current with Power BI updates through the official blog: <a href='https://powerbi.microsoft.com/en-us/blog/'>Power BI Blog</a>.";
+			} else if (/power bi data modelling/i.test(userInput)) {
+				botResponse = "Data modelling is key in Power BI. Here's a great resource: <a href='https://docs.microsoft.com/en-us/power-bi/guidance/star-schema'>Data Modelling in Power BI</a>.";
+			} else if (/power bi dax/i.test(userInput)) {
+				botResponse = "DAX is essential for measures in Power BI. Learn more at: <a href='https://docs.microsoft.com/en-us/dax/'>DAX Documentation</a>.";
+			} else if (/power bi visualization/i.test(userInput)) {
+				botResponse = "Improve your reports with top-notch visualizations. Check out these resources: <a href='https://community.powerbi.com/t5/Data-Stories-Gallery/bd-p/DataStoriesGallery'>Power BI Visualizations</a>.";
+			} else if (/power bi service/i.test(userInput)) {
+				botResponse = "The Power BI Service enables sharing and collaboration. Visit: <a href='https://powerbi.microsoft.com/en-us/service/'>Power BI Service</a>.";
+			} else if (/power bi security/i.test(userInput)) {
+				botResponse = "Security is a top priority. Read about Power BI security features: <a href='https://docs.microsoft.com/en-us/power-bi/admin/service-security'>Power BI Security</a>.";
+			} else if (/power bi data sources/i.test(userInput)) {
+				botResponse = "Connect to multiple data sources with Power BI. Here’s how: <a href='https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-data-sources'>Supported Data Sources</a>.";
+			} else if (/power bi refresh/i.test(userInput)) {
+				botResponse = "Learn about scheduled refresh and data update settings: <a href='https://docs.microsoft.com/en-us/power-bi/connect-data/refresh-data'>Refresh Data</a>.";
+			} else if (/microsoft fabric benefits/i.test(userInput)) {
+				botResponse = "Microsoft Fabric can streamline your end-to-end analytics process. Discover the benefits: <a href='https://azure.microsoft.com/en-us/overview/modern-data-warehouse/'>Microsoft Fabric Benefits</a>.";
+			} else if (/microsoft fabric learning/i.test(userInput)) {
+				botResponse = "Boost your Fabric skills with these learning resources: <a href='https://docs.microsoft.com/en-us/learn/'>Microsoft Learn</a>.";
+			} else if (/fabric support/i.test(userInput)) {
+				botResponse = "Need help with Microsoft Fabric? Visit the support page: <a href='https://docs.microsoft.com/en-us/answers/topics/service-fabric.html'>Fabric Support</a>.";
+			} else if (/power bi roadmap/i.test(userInput)) {
+				botResponse = "Check out the roadmap for upcoming Power BI features: <a href='https://powerbi.microsoft.com/en-us/blog/'>Power BI Roadmap</a>.";
+			} else if (/microsoft fabric updates/i.test(userInput)) {
+				botResponse = "Stay informed on Microsoft Fabric updates at: <a href='https://azure.microsoft.com/en-us/updates/'>Azure Updates</a>.";
+			} 
+			// Fallback response with additional links
+			else {
+				botResponse = "Sorry, I didn't quite understand that. For more info on Power BI, please visit <a href='https://powerbi.microsoft.com/'>Power BI Official Site</a> or for Microsoft Fabric details, check <a href='https://azure.microsoft.com/en-us/products/service-fabric/'>Microsoft Fabric</a>.";
+			}
+		  
+			// Display bot's response
+			chatbox.innerHTML += `<div style="color: white;"><strong>${botName}:</strong> ${botResponse}</div>`;
+		  
+			// Scroll to the bottom
 			chatbox.scrollTop = chatbox.scrollHeight;
-		  }, 60000); // Timeout of 1 minute
+		  
+			// Clear previous timeout and set a new one for goodbye
+			clearTimeout(timeout);
+			timeout = setTimeout(() => {
+				chatbox.innerHTML += `<div style="color: white;"><strong>${botName}:</strong> Goodbye! Feel free to visit again for more Power BI and Microsoft Fabric insights.</div>`;
+				chatbox.scrollTop = chatbox.scrollHeight;
+			}, 60000); // Timeout of 1 minute
 		}
-	  </script>
-	  
+	</script>
