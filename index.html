@@ -536,7 +536,7 @@
 			} 
 			// Fallback response with misspelling check
 			else {
-				if (/miespaled|mispelled|mispeled/i.test(userInput)) {
+				if (/incorrect word|wrong sentence|wrong word/i.test(userInput)) {
 					botResponse = "Can you please write correctly?";
 				} else {
 					botResponse = "I don't have an answer for this.";
