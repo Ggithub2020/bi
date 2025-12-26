@@ -28,4 +28,4 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
-openai.api_key = "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"
+openai.api_key = "xyz"
