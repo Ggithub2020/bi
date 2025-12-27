@@ -337,6 +337,7 @@
 										<li><a href="https://github.com/Ggithub2020/girum/assets/73087775/cd22564e-9104-4b05-9fde-0bda3bcd7003" target="_blank">Microsoft Certified: Azure Data Fundamentals</a></li>
 										<li><a href="https://learn.microsoft.com/api/credentials/share/en-us/GirumObse-5258/4EDEC483A3B95E3C?sharingIdr" target="_blank">Microsoft Certified Power BI Data Analyst</a></li>
 										<li><a href="https://github.com/Ggithub2020/Tax-Calculator-C-sharp/assets/73087775/f9945528-0fc4-4f20-b9fd-d2a6a23065e1" target="_blank">Microsoft Certified Fabric Analytics Engineer</a></li>
+										<li><a href="https://learn.microsoft.com/api/credentials/share/en-us/GirumObse-5258/2C94486DEF95EA7E?sharingId=DDAF9E1FDF4DA2BB" target="_blank">Microsoft Certified: Fabric Data Engineer Associate</a></li>
 										<li><a href="https://learn.microsoft.com/api/credentials/share/en-us/GirumObse-5258/E46B5BC20D3784FD?sharingId=DDAF9E1FDF4DA2BB" target="_blank">Certified Microsoft AI Fundamentals</a></li>
 										<li><a href="https://learn.microsoft.com/api/credentials/share/en-us/GirumObse-5258/93E2D3A8710AF1F5?sharingId=DDAF9E1FDF4DA2BB" target="_blank">Microsoft Certified Power Platform Fundamentals</a></li>
 								
@@ -404,7 +405,7 @@
 						<ul>
 	  <ul>
 		<li style="color: darkgreen;">&copy; Girum</li>
-		<li><span style="color: darkgreen;">girum@2025:</span> <a href="#" style="color: darkgreen;">Link</a></li>
+		<li><span style="color: darkgreen;">girum@2026:</span> <a href="#" style="color: darkgreen;">Link</a></li>
 	  </ul>
 
 
@@ -421,105 +422,74 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-	</body><section id="chatbot">
-		<h2 style="color: white; font-size: 16px;">Start a Chat with GirAI</h2>
-		<div id="chatbox" style="border: 1px solid #e5e9eb; padding: 10px; height: 300px; overflow-y: auto; background: #97a4ac; color: white; font-size: 14px;">
-		  <!-- Initially empty chatbox -->
-		</div>
-		<div style="margin-top: 10px; display: flex;">
-		  <input type="text" id="user-input" placeholder="Type your message" style="flex: 1; padding: 10px; margin-right: 10px; background-color: #333; color: white; border: 1px solid #888;">
-		  <button onclick="sendMessage()" style="padding: 10px; background-color: #444; color: white; border: none; cursor: pointer;">Send</button>
-		</div>
-	  </section>
-	  
-	  <script>
-		let timeout;
-	  
-		async function sendMessage() {
-		  const chatbox = document.getElementById("chatbox");
-		  const userInput = document.getElementById("user-input").value;
-		  const botName = "GirAI";  // Chatbot name
-	  
-		  if (!userInput.trim()) {
-			alert("Please type a message.");
-			return;
-		  }
-	  
-		  // Display user's message
-		  chatbox.innerHTML += `<div style="color: white;"><strong>You:</strong> ${userInput}</div>`;
-	  
-		  // Clear the input field
-		  document.getElementById("user-input").value = "";
-	  
-		  // Define response for greetings
-		  const greetings = [
-			"Hi there! How can I assist you today?",
-			"Hello! How are you today?",
-			"Hi! How can I help you?",
-			"Hello there! Do you have any questions about Power BI?",
-			"Hey! How can I assist you with Business Intelligence today?"
-		  ];
-	  
-		  // Define default responses
-		  let botResponse = "";
-	  
-		  // Check for greetings and respond with a random greeting
-		  if (/hello|hi|hey/i.test(userInput)) {
-    botResponse = greetings[Math.floor(Math.random() * greetings.length)];
-} else if (/power bi/i.test(userInput)) {
-    botResponse = "Power BI is a data visualization and business intelligence tool by Microsoft. It allows you to connect to various data sources, create interactive reports and dashboards. How can I assist you with Power BI today? For more details, check the official site: [Power BI Overview](https://powerbi.microsoft.com/).";
-} else if (/what is power bi/i.test(userInput)) {
-    botResponse = "Power BI is a suite of business analytics tools to analyze data and share insights. It enables you to create reports and dashboards that can be accessed by users across the organization. Learn more about Power BI here: [What is Power BI?](https://powerbi.microsoft.com/en-us/what-is-power-bi/)";
-} else if (/power bi desktop/i.test(userInput)) {
-    botResponse = "Power BI Desktop is a free, powerful tool for creating reports and visualizations on your local computer. You can download it here: [Power BI Desktop](https://powerbi.microsoft.com/en-us/desktop/)";
-} else if (/power bi service/i.test(userInput)) {
-    botResponse = "Power BI Service is a cloud-based service that allows you to publish, share, and collaborate on reports and dashboards. It's an integral part of the Power BI ecosystem. Find out more here: [Power BI Service](https://powerbi.microsoft.com/en-us/power-bi-service/)";
-} else if (/dax/i.test(userInput)) {
-    botResponse = "DAX (Data Analysis Expressions) is a formula language used in Power BI, Power Pivot, and SSAS to define custom calculations. For learning DAX, check this guide: [DAX Basics](https://docs.microsoft.com/en-us/dax/dax-guide/)";
-} else if (/power query/i.test(userInput)) {
-    botResponse = "Power Query is a data connection technology that enables you to discover, connect, and combine data from different sources. Learn more about Power Query here: [Power Query Documentation](https://docs.microsoft.com/en-us/power-query/)";
-} else if (/power apps/i.test(userInput)) {
-    botResponse = "Power Apps is part of the Power Platform, allowing users to create custom business applications with no or low code. Check out more about Power Apps here: [Power Apps Overview](https://powerapps.microsoft.com/)";
-} else if (/power automate/i.test(userInput)) {
-    botResponse = "Power Automate helps automate repetitive tasks and workflows. It's also part of the Power Platform. Learn more here: [Power Automate Overview](https://flow.microsoft.com/)";
-} else if (/microsoft fabric/i.test(userInput)) {
-    botResponse = "Microsoft Fabric is a unified data platform that allows collaboration across various data disciplines. It integrates tools for data engineering, data science, and business analytics. More details here: [Microsoft Fabric Overview](https://www.microsoft.com/en-us/fabric)";
-} else if (/data model/i.test(userInput)) {
-    botResponse = "In Power BI, a data model represents how data is structured and related in reports. A good data model ensures accurate and optimized reporting. Learn more about data models here: [Data Models in Power BI](https://docs.microsoft.com/en-us/power-bi/desktop-data-modeling)";
-} else if (/data visualization/i.test(userInput)) {
-    botResponse = "Data visualization is the graphical representation of data and insights. Power BI offers a wide range of visualization types to help you communicate your data effectively. Check out available visualizations here: [Power BI Visualizations](https://docs.microsoft.com/en-us/power-bi/visuals/desktop-visualization-types)";
-} else if (/report sharing/i.test(userInput)) {
-    botResponse = "Power BI allows you to share reports with others by publishing to the Power BI Service. You can share them via email, embedding, or sharing links. Learn more here: [Share Power BI Reports](https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-share-dashboards)";
-} else if (/dashboard/i.test(userInput)) {
-    botResponse = "A Power BI Dashboard is a single-page view of your data, built from multiple visualizations. Dashboards help you keep track of key metrics. Learn more about dashboards here: [Create Power BI Dashboards](https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboards)";
-} else if (/power bi pro/i.test(userInput)) {
-    botResponse = "Power BI Pro is a paid version of Power BI that offers advanced collaboration, sharing, and governance features. You can learn more about Power BI Pro here: [Power BI Pro Features](https://powerbi.microsoft.com/en-us/pricing/)";
-} else if (/power bi premium/i.test(userInput)) {
-    botResponse = "Power BI Premium offers enhanced performance, scalability, and governance capabilities. It's designed for large-scale deployments. Find more information here: [Power BI Premium](https://powerbi.microsoft.com/en-us/premium/)";
-} else if (/query folding/i.test(userInput)) {
-    botResponse = "Query folding is the process where Power Query transforms the steps you apply on your data into a series of queries that run against the data source, improving performance. Learn more here: [Query Folding in Power BI](https://docs.microsoft.com/en-us/power-query/handle-query-folding)";
-} else if (/row-level security/i.test(userInput)) {
-    botResponse = "Row-Level Security (RLS) in Power BI allows you to restrict data access for specific users based on filters applied to data models. Learn more about RLS here: [Row-Level Security in Power BI](https://docs.microsoft.com/en-us/power-bi/admin/rls)";
-} else if (/power bi gateway/i.test(userInput)) {
-    botResponse = "Power BI Gateway is used to transfer data securely between on-premises data sources and the Power BI service. More about gateways here: [Power BI Gateway](https://docs.microsoft.com/en-us/power-bi/connect-data/service-gateway-onprem)";
-} else if (/data refresh/i.test(userInput)) {
-    botResponse = "Power BI supports automatic data refresh for datasets in Power BI Service, ensuring your reports are up to date. Learn how to set it up here: [Data Refresh in Power BI](https://docs.microsoft.com/en-us/power-bi/connect-data/service-gateway-refresh-data)";
-} else {
-    botResponse = "Sorry, I didn't quite understand that. Could you please rephrase? I'm here to help with anything about Power BI, Power BI Service, or Microsoft Fabric.";
-}
+	<section id="chat-container">
+  <h2>Chat with Girum</h2>
+  <div id="chat"></div>
+  <div id="input-area">
+    <input type="text" id="userInput" placeholder="Type your message...">
+    <button id="send">Send</button>
+  </div>
+</section>
 
-	  
-		  // Display bot's response
-		  chatbox.innerHTML += `<div style="color: white;"><strong>${botName}:</strong> ${botResponse}</div>`;
-	  
-		  // Scroll to the bottom
-		  chatbox.scrollTop = chatbox.scrollHeight;
-	  
-		  // Clear previous timeout and set a new one for goodbye
-		  clearTimeout(timeout);
-		  timeout = setTimeout(() => {
-			chatbox.innerHTML += `<div style="color: white;"><strong>${botName}:</strong> Goodbye! Feel free to visit again for Power BI questions or anything else.</div>`;
-			chatbox.scrollTop = chatbox.scrollHeight;
-		  }, 60000); // Timeout of 1 minute
-		}
-	  </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const chatbox = document.getElementById("chat");
+    const inputField = document.getElementById("userInput");
+    const sendButton = document.getElementById("send");
+    const botName = "GirAI";
+    let timeout;
+
+    // Send message on Enter key
+    inputField.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    // Send message on button click
+    sendButton.addEventListener("click", sendMessage);
+
+    function sendMessage() {
+        const userInput = inputField.value.trim();
+        if (!userInput) {
+            alert("Please type a message or question about Power BI or Business Intelligence.");
+            return;
+        }
+
+        // Display user message
+        chatbox.innerHTML += `<div style="color:white;"><strong>You:</strong> ${userInput}</div>`;
+        inputField.value = "";
+
+        // Bot response logic
+        let botResponse = "Sorry, I didn't quite understand that.";
+
+        const greetings = [
+            "Hi there! How can I assist you today?",
+            "Hello! How are you today?",
+            "Hi! How can I help you?",
+        ];
+
+        if (/hello|hi|hey/i.test(userInput)) {
+            botResponse = greetings[Math.floor(Math.random() * greetings.length)];
+        } else if (/power bi/i.test(userInput)) {
+            botResponse = "Power BI is a Microsoft BI tool for data visualization and business intelligence.";
+        } else if (/power platform/i.test(userInput)) {
+            botResponse = "Power Platform includes Power BI, Power Apps, and Power Automate.";
+        } else if (/fabric/i.test(userInput)) {
+            botResponse = "Microsoft Fabric is a unified data platform.";
+        }
+
+        // Display bot response
+        chatbox.innerHTML += `<div style="color:white;"><strong>${botName}:</strong> ${botResponse}</div>`;
+        chatbox.scrollTop = chatbox.scrollHeight;
+
+        // Optional goodbye after 1 minute
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            chatbox.innerHTML += `<div style="color:white;"><strong>${botName}:</strong> Goodbye! Come back anytime for Power BI questions.</div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }, 60000);
+    }
+});
+</script>

@@ -1,33 +1,24 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
-}
-
-h1 {
-  color: #333;
-}
-
 #chat-container {
-  width: 400px;
-  height: 500px;
-  border: 1px solid #ccc;
+  width: 350px;
+  height: 450px;
+  position: fixed;    /* crucial for floating */
+  bottom: 20px;       /* distance from bottom */
+  right: 20px;        /* distance from right */
+  background-color: #dbe0e4;
+  color: white;
   border-radius: 10px;
-  background-color: #b0c4cc;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  z-index: 9999;      /* above other content */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 #chat {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
+  font-size: 14px;
 }
 
 #input-area {
@@ -39,19 +30,14 @@ h1 {
   flex: 1;
   padding: 10px;
   border: none;
-  font-size: 16px;
+  background-color: #34495e;
+  color: white;
 }
 
 #send {
   padding: 10px 20px;
   background-color: #007bff;
-  color: #fff;
   border: none;
+  color: white;
   cursor: pointer;
-  font-size: 16px;
 }
-
-#send:hover {
-  background-color: #0056b3;
-}
-
