@@ -21,8 +21,7 @@ function sendMessage() {
     }
 
     // Display user message
-    chatbox.innerHTML += `<div style="color:white;"><strong>You:</strong> ${userInput}</div>`;
-
+    chatbox.innerHTML += `<div><strong style="color:#007bff;">You:</strong> ${userInput}</div>`;
     // Clear input
     userInputField.value = "";
 
@@ -35,7 +34,7 @@ function sendMessage() {
     else if (/fabric/i.test(userInput)) botResponse = "Microsoft Fabric is a unified data platform.";
 
     // Display bot response
-    chatbox.innerHTML += `<div style="color:white;"><strong>${botName}:</strong> ${botResponse}</div>`;
+    chatbox.innerHTML += `<div><strong style="color:#007bff;">${botName}:</strong> ${botResponse}</div>`;
 
     // Scroll to bottom
     chatbox.scrollTop = chatbox.scrollHeight;
