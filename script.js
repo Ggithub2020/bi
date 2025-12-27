@@ -1,115 +1,42 @@
-const chat = document.getElementById("chat");
-const input = document.getElementById("userInput");
-const send = document.getElementById("send");
+const chatbox = document.getElementById("chat");
+const userInputField = document.getElementById("userInput"); // note we get the element, not value yet
+const botName = "GirAI"; // or AskGirum
 
-send.addEventListener("click", () => {
-  const userMessage = input.value.trim();
-  if (userMessage) {
-    addMessage("You", userMessage);
-    getBotResponse(userMessage);
-    input.value = "";
-  }
+// Send button click
+document.getElementById("send").addEventListener("click", sendMessage);
+
+// Enter key
+userInputField.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+    }
 });
 
-function addMessage(sender, message) {
-  const messageElement = document.createElement("div");
-  messageElement.textContent = `${sender}: ${message}`;
-  chat.appendChild(messageElement);
-  chat.scrollTop = chat.scrollHeight; // Scroll to the bottom
-}
-
-function getBotResponse(userMessage) {
-  const responses = [
-    "Hello! How can I help you today?",
-    "I'm here to assist you.",
-    "What can I do for you?",
-    "Feel free to ask me anything.",
-    "I'm here to chat with you."
-  ];
-
-  let botMessage = "I'm not sure how to respond to that.";
-  if (userMessage.toLowerCase().includes("hello")) {
-    botMessage = "Hi there! How can I help you?";
-  } else if (userMessage.toLowerCase().includes("weather")) {
-    botMessage = "The weather is sunny today!";
-  } else {
-    botMessage = responses[Math.floor(Math.random() * responses.length)];
-  }
-
-  setTimeout(() => {
-    addMessage("Bot", botMessage);
-  }, 1000); // Simulate a delay
-}
-
-async function sendMessage() {
-    const chatbox = document.getElementById("chatbox");
-    const userInput = document.getElementById("user-input").value;
-
-    if (!userInput.trim()) {
-        alert("Please type a message.");
+function sendMessage() {
+    const userInput = userInputField.value.trim();
+    if (!userInput) {
+        alert("Please type a message...");
         return;
     }
 
     // Display user message
-    chatbox.innerHTML += `<div><strong>You:</strong> ${userInput}</div>`;
+    chatbox.innerHTML += `<div style="color:white;"><strong>You:</strong> ${userInput}</div>`;
 
-    // Clear the input field
-    document.getElementById("user-input").value = "";
+    // Clear input
+    userInputField.value = "";
 
-    // Call the OpenAI API
-    try {
-        const response = await fetch("https://api.openai.com/v1/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "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" // Replace with your OpenAI API key
-            },
-            body: JSON.stringify({
-                model: "text-davinci-003",
-                prompt: userInput,
-                max_tokens: 150
-            })
-        });
+    // Bot response logic (simplified example)
+    let botResponse = "Sorry, I didn't understand that.";
 
-        const data = await response.json();
-        const botResponse = data.choices[0].text.trim();
+    if (/hello|hi/i.test(userInput)) botResponse = "Hi! How can I help you today?";
+    else if (/power bi/i.test(userInput)) botResponse = "Power BI is a Microsoft BI tool.";
+    else if (/power platform/i.test(userInput)) botResponse = "Power Platform includes Power BI, Power Apps, Power Automate.";
+    else if (/fabric/i.test(userInput)) botResponse = "Microsoft Fabric is a unified data platform.";
 
-        // Display bot response
-        chatbox.innerHTML += `<div><strong>AI:</strong> ${botResponse}</div>`;
-        chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
-    } catch (error) {
-        console.error("Error:", error);
-        chatbox.innerHTML += `<div style="color: red;"><strong>Error:</strong> Unable to connect to the AI server.</div>`;
-    }
+    // Display bot response
+    chatbox.innerHTML += `<div style="color:white;"><strong>${botName}:</strong> ${botResponse}</div>`;
+
+    // Scroll to bottom
+    chatbox.scrollTop = chatbox.scrollHeight;
 }
-const response = await fetch("https://your-backend-url.com/chat", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ prompt: userInput })
-});
-try {
-    const response = await fetch("https://your-backend-url/chat", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ prompt: userInput })
-    });
-
-    if (!response.ok) {
-        throw new Error("Failed to fetch from the backend");
-    }
-
-    const data = await response.json();
-    const botResponse = data.response || "Error: Unable to get a response from the server.";
-    chatbox.innerHTML += `<div style="color: white;"><strong>AI:</strong> ${botResponse}</div>`;
-    chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
-} catch (error) {
-    console.error("Error:", error);
-    chatbox.innerHTML += `<div style="color: white; color: red;"><strong>Error:</strong> ${error.message}</div>`;
-}
-
-
-
