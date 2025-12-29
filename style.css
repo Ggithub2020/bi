@@ -30,14 +30,23 @@
   flex: 1;
   padding: 10px;
   border: none;
-  background-color: #34495e;
+  background-color: #c1ccd7;
   color: white;
 }
 
 #send {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #c6d2de;
   border: none;
   color: white;
   cursor: pointer;
+}
+
+#chat-heading {
+    color: #007bff;   /* blue */
+    font-weight: bold; /* bold */
+}
+#chat-heading {
+    color: #007bff;   /* blue */
+    font-weight: bold; /* bold */
 }
