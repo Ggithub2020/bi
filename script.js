@@ -1,41 +1,308 @@
-const chatbox = document.getElementById("chat");
-const userInputField = document.getElementById("userInput"); // note we get the element, not value yet
-const botName = "GirAI"; // or AskGirum
+// Add this at the top of your JS file
+const faqData = {
+    "how to create a measure in power bi?": "Go to the Modeling tab, click 'New Measure', and write your DAX formula.",
+    "what is dax?": "DAX stands for Data Analysis Expressions, used to create custom calculations in Power BI.",
+    "how to connect sql server to power bi?": "Use the 'Get Data' option, select 'SQL Server', and input your server and database details.",
+    "what is the difference between a measure and a calculated column?": "Measures calculate values on the fly based on filters, while calculated columns add static values to the data model.",
+    "how do i create relationships between tables in power bi?": "Go to the Model view and drag a field from one table to a matching field in another table to create a relationship.",
+    "how to use power query in power bi?": "Click 'Transform Data' to open Power Query Editor where you can clean, filter, and shape your data.",
+    "what is a slicer in power bi?": "A slicer is a visual filter that allows users to filter reports by selecting values from a list.",
+    "how to use a calculated table?": "Use DAX like 'New Table = SUMMARIZE(...)' to create a new table based on existing data.",
+    "what is the difference between directquery and import?": "Import loads data into memory for fast performance; DirectQuery keeps data in the source and queries it live.",
+    "how can i optimize a power bi report?": "Reduce visuals, avoid complex DAX, use Import instead of DirectQuery, and use aggregations where possible.",
+    "how to refresh data in power bi desktop?": "Click the 'Refresh' button on the Home tab to reload data from all sources.",
+    "How to create a measure in Power BI?": "Go to the Modeling tab, click 'New Measure', and write your DAX formula.",
+    "What is DAX?": "DAX stands for Data Analysis Expressions, used to create custom calculations in Power BI.",
+    "How to connect SQL Server to Power BI?": "Use the 'Get Data' option, select 'SQL Server', and input your server and database details.",
+    "What is the difference between a measure and a calculated column?": "Measures calculate values on the fly based on filters, while calculated columns add static values to the data model.",
+    "How do I create relationships between tables in Power BI?": "Go to the Model view and drag a field from one table to a matching field in another table to create a relationship.",
+    "How to use Power Query in Power BI?": "Click 'Transform Data' to open Power Query Editor where you can clean, filter, and shape your data.",
+    "What is a slicer in Power BI?": "A slicer is a visual filter that allows users to filter reports by selecting values from a list.",
+    "How to use a calculated table?": "Use DAX like 'New Table = SUMMARIZE(...)' to create a new table based on existing data.",
+    "What is the difference between DirectQuery and Import?": "Import loads data into memory for fast performance; DirectQuery keeps data in the source and queries it live.",
+    "How can I optimize a Power BI report?": "Reduce visuals, avoid complex DAX, use Import instead of DirectQuery, and use aggregations where possible.",
+    "How to refresh data in Power BI Desktop?": "Click the 'Refresh' button on the Home tab to reload data from all sources.",
+    "How to write a DAX IF statement?": "Use syntax like 'IF(condition, true_result, false_result)'.",
+    "What are common DAX functions?": "SUM, AVERAGE, COUNTROWS, CALCULATE, FILTER, and RELATED are commonly used.",
+    "How to filter data using DAX?": "Use the FILTER function inside CALCULATE, e.g., 'CALCULATE(SUM(Sales[Amount]), FILTER(Sales, Sales[Region] = \"East\"))'",
+    "How to use GROUP BY in Power Query?": "Use the 'Group By' button on the Power Query ribbon to group and summarize data.",
+    "How to create a KPI visual in Power BI?": "Use the KPI visual and bind it to a value, a target, and a trend (time-based) field.",
+    "What is a star schema?": "A star schema is a data model where a central fact table is connected to dimension tables, ideal for BI modeling.",
+    "What is row-level security (RLS)?": "RLS allows you to restrict data access for specific users by creating roles and DAX filters.",
+    "How to publish a Power BI report?": "Click 'Publish' in Power BI Desktop and select a workspace in your Power BI service.",
+    "What is Power BI Service?": "It's the cloud-based platform where published Power BI reports and dashboards are hosted and shared.",
+    "How to schedule data refresh in Power BI Service?": "Go to the dataset settings in Power BI Service, configure credentials, and set a refresh frequency.",
+    "How to handle many-to-many relationships?": "Use a bridge table with distinct values and define proper relationships using one-to-many joins.",
+    "What is a tooltip?": "A tooltip is a popup that shows additional data when hovering over a visual, and can be customized in Power BI.",
+    "How to create bookmarks?": "Go to the View tab, open the Bookmarks pane, configure your view, and click 'Add' to create a bookmark.",
+    "How to write an SQL INNER JOIN?": "Use 'SELECT * FROM A INNER JOIN B ON A.id = B.id' to combine matching rows from two tables.",
+    "What is SQL?": "SQL (Structured Query Language) is used to communicate with and manipulate databases. It allows querying, updating, inserting, and deleting data.",
+    "What is Power BI?": "Power BI is a business analytics tool by Microsoft that allows you to visualize data and share insights across your organization.",
+    "What is a measure in Power BI?": "A measure is a DAX calculation that performs dynamic aggregation based on filters in a report.",
+    "What is AI?": "Artificial Intelligence (AI) refers to the simulation of human intelligence by machines, enabling them to perform tasks like learning, reasoning, and problem-solving.",
+    "What is a table in Power BI?": "A table is a collection of related data organized in rows and columns, used for analysis and modeling.",
+    "What are some useful Power BI blogs?": "Popular blogs include SQLBI.com, GuyInACube.com, RADACAD.com, and the official Microsoft Power BI blog.",
+    "Where can I find Power BI documentation?": "The official Microsoft Power BI documentation is at: https://learn.microsoft.com/en-us/power-bi/",
+    "What are the best YouTube channels to learn Power BI?": "Top YouTube channels include Guy in a Cube, Enterprise DNA, Curbal, and Pragmatic Works.",
+    "What is a calculated column in Power BI?": "A calculated column is a DAX expression used to add a new column to a table with values based on other columns.",
+    "What is the difference between calculated column and measure?": "Calculated columns are computed row by row and stored in the table. Measures are computed on-the-fly based on filters in visuals.",
+    "What is data modeling in Power BI?": "Data modeling is the process of creating relationships between tables and defining measures, hierarchies, and calculated columns to structure the data for analysis.",
+    "What is the Power BI Desktop?": "Power BI Desktop is a free Windows application used to create Power BI reports and data models.",
+    "Can Power BI connect to Excel?": "Yes, Power BI can import Excel files or connect live to tables and named ranges in Excel workbooks.",
+    "What is the Power Query Editor?": "Power Query Editor is the interface where you can shape, transform, and clean your data before loading it into Power BI.",
+    "What is a visual in Power BI?": "A visual is a graphical representation of data, such as a bar chart, pie chart, line chart, or table.",
+    "What is DAX used for?": "DAX (Data Analysis Expressions) is used in Power BI to create custom calculations for measures, calculated columns, and tables.",
+    "What is a Power BI dashboard?": "A dashboard is a single-page, interactive canvas in Power BI Service that displays key visualizations from one or more reports.",
+    "Can Power BI handle large datasets?": "Yes, Power BI can handle large datasets using features like aggregations, incremental refresh, and DirectQuery.",
+    "What is DirectQuery in Power BI?": "DirectQuery is a connection method where queries are sent directly to the source database instead of importing data into memory.",
+    "Where can I find sample Power BI datasets?": "Microsoft provides sample datasets at https://learn.microsoft.com/en-us/power-bi/create-reports/sample-datasets",
+    "How to create a measure in Power BI?": "Go to the Modeling tab, click 'New Measure', and write your DAX formula.",
+    "What is DAX?": "DAX stands for Data Analysis Expressions, used to create custom calculations in Power BI.",
+    "How to connect SQL Server to Power BI?": "Use the 'Get Data' option, select 'SQL Server', and input your server and database details.",
+    "What is the difference between a measure and a calculated column?": "Measures calculate values on the fly based on filters, while calculated columns add static values to the data model.",
+    "How do I create relationships between tables in Power BI?": "Go to the Model view and drag a field from one table to a matching field in another table to create a relationship.",
+    "How to use Power Query in Power BI?": "Click 'Transform Data' to open Power Query Editor where you can clean, filter, and shape your data.",
+    "What is a slicer in Power BI?": "A slicer is a visual filter that allows users to filter reports by selecting values from a list.",
+    "How to use a calculated table?": "Use DAX like 'New Table = SUMMARIZE(...)' to create a new table based on existing data.",
+    "What is the difference between DirectQuery and Import?": "Import loads data into memory for fast performance; DirectQuery keeps data in the source and queries it live.",
+    "How can I optimize a Power BI report?": "Reduce visuals, avoid complex DAX, use Import instead of DirectQuery, and use aggregations where possible.",
+    "How to refresh data in Power BI Desktop?": "Click the 'Refresh' button on the Home tab to reload data from all sources.",
+    "How to write a DAX IF statement?": "Use syntax like 'IF(condition, true_result, false_result)'.",
+    "What are common DAX functions?": "SUM, AVERAGE, COUNTROWS, CALCULATE, FILTER, and RELATED are commonly used.",
+    "How to filter data using DAX?": "Use the FILTER function inside CALCULATE, e.g., 'CALCULATE(SUM(Sales[Amount]), FILTER(Sales, Sales[Region] = \"East\"))'.",
+    "How to use GROUP BY in Power Query?": "Use the 'Group By' button on the Power Query ribbon to group and summarize data.",
+    "How to create a KPI visual in Power BI?": "Use the KPI visual and bind it to a value, a target, and a trend (time-based) field.",
+    "What is a star schema?": "A star schema is a data model where a central fact table is connected to dimension tables, ideal for BI modeling.",
+    "What is row-level security (RLS)?": "RLS allows you to restrict data access for specific users by creating roles and DAX filters.",
+    "How to publish a Power BI report?": "Click 'Publish' in Power BI Desktop and select a workspace in your Power BI service.",
+    "What is Power BI Service?": "It's the cloud-based platform where published Power BI reports and dashboards are hosted and shared.",
+    "How to schedule data refresh in Power BI Service?": "Go to the dataset settings in Power BI Service, configure credentials, and set a refresh frequency.",
+    "How to handle many-to-many relationships?": "Use a bridge table with distinct values and define proper relationships using one-to-many joins.",
+    "What is a tooltip?": "A tooltip is a popup that shows additional data when hovering over a visual, and can be customized in Power BI.",
+    "How to create bookmarks?": "Go to the View tab, open the Bookmarks pane, configure your view, and click 'Add' to create a bookmark.", 
+    "What is SQL?": "SQL (Structured Query Language) is used to communicate with and manipulate databases. It allows querying, updating, inserting, and deleting data.",
+    "What is Power BI?": "Power BI is a business analytics tool by Microsoft that allows you to visualize data and share insights across your organization.",
+    "What is a measure in Power BI?": "A measure is a DAX calculation that performs dynamic aggregation based on filters in a report.",
+    "What is AI?": "Artificial Intelligence (AI) refers to the simulation of human intelligence by machines, enabling them to perform tasks like learning, reasoning, and problem-solving.",
+    "What is a table in Power BI?": "A table is a collection of related data organized in rows and columns, used for analysis and modeling.",
+    "What are some useful Power BI blogs?": "Popular blogs include SQLBI.com, GuyInACube.com, RADACAD.com, and the official Microsoft Power BI blog.",
+    "Where can I find Power BI documentation?": "The official Microsoft Power BI documentation is at: https://learn.microsoft.com/en-us/power-bi/",
+    "What are the best YouTube channels to learn Power BI?": "Top YouTube channels include Guy in a Cube, Enterprise DNA, Curbal, and Pragmatic Works.",
+    "What is a calculated column in Power BI?": "A calculated column is a DAX expression used to add a new column to a table with values based on other columns.",
+    "What is the difference between calculated column and measure?": "Calculated columns are computed row by row and stored in the table. Measures are computed on-the-fly based on filters in visuals.",
+    "What is data modeling in Power BI?": "Data modeling is the process of creating relationships between tables and defining measures, hierarchies, and calculated columns to structure the data for analysis.",
+    "What is the Power BI Desktop?": "Power BI Desktop is a free Windows application used to create Power BI reports and data models.",
+    "Can Power BI connect to Excel?": "Yes, Power BI can import Excel files or connect live to tables and named ranges in Excel workbooks.",
+    "What is the Power Query Editor?": "Power Query Editor is the interface where you can shape, transform, and clean your data before loading it into Power BI.",
+    "What is a visual in Power BI?": "A visual is a graphical representation of data, such as a bar chart, pie chart, line chart, or table.",
+    "What is DAX used for?": "DAX (Data Analysis Expressions) is used in Power BI to create custom calculations for measures, calculated columns, and tables.",
+    "What is a Power BI dashboard?": "A dashboard is a single-page, interactive canvas in Power BI Service that displays key visualizations from one or more reports.",
+    "Can Power BI handle large datasets?": "Yes, Power BI can handle large datasets using features like aggregations, incremental refresh, and DirectQuery.",
+    "What is DirectQuery in Power BI?": "DirectQuery is a connection method where queries are sent directly to the source database instead of importing data into memory.",
+    "Where can I find sample Power BI datasets?": "Microsoft provides sample datasets at https://learn.microsoft.com/en-us/power-bi/create-reports/sample-datasets",
+    "What are the limitations of Power BI Free vs Pro?": "Power BI Free users can create reports but can't share them. Power BI Pro is required for sharing, collaboration, and advanced features.",
+    "What is a KPI in Power BI?": "A KPI (Key Performance Indicator) visual displays progress toward a measurable goal, usually with a target and trend over time.",
+    "How do I share Power BI reports?": "You can publish reports to the Power BI Service and share them with others who have Power BI Pro or Premium access.",
+    "How to install Power BI Desktop?": "Download it from https://powerbi.microsoft.com or the Microsoft Store and follow the installation instructions.",
+    "What is version control?": "Version control is a system that records changes to files over time so you can recall specific versions later. Git is the most popular tool for this.",
+    "What is Git?": "Git is a distributed version control system used to track changes in source code during software development.",
+    "How do I resolve a Git merge conflict?": "Open the conflicted file, manually fix the overlapping changes, then commit the resolved version using 'git add' and 'git commit'.",
+    "What is an API?": "An API (Application Programming Interface) is a set of rules and protocols that allows one piece of software to interact with another.",
+    "What is REST API?": "REST is an architectural style for designing networked applications using standard HTTP methods like GET, POST, PUT, and DELETE.",
+    "How to stay productive as a developer?": "Use techniques like Pomodoro, take breaks, plan your day, avoid context switching, and keep distractions minimal.",
+    "What is code refactoring?": "Refactoring is the process of restructuring existing code without changing its behavior to improve readability and maintainability.",
+    "What is the difference between frontend and backend?": "Frontend refers to the user-facing part of an application (HTML/CSS/JS), while backend handles data, logic, and servers (like Node.js, Python, or SQL).",
+    "What is debugging?": "Debugging is the process of identifying and fixing errors or bugs in code.",
+    "What is an IDE?": "An IDE (Integrated Development Environment) is a software application that provides tools like a code editor, debugger, and build automation — e.g., VS Code, PyCharm.",
+    "What is the difference between a script and a program?": "A script is a small piece of code that automates a task, while a program is a full-fledged application with more complexity and structure.",
+    "What is a function in programming?": "A function is a reusable block of code that performs a specific task and can be called whenever needed.",
+    "What are environment variables?": "Environment variables store configuration values (like API keys or DB URLs) separately from code, making apps more secure and flexible.",
+    "What is VS Code?": "Visual Studio Code (VS Code) is a lightweight but powerful source code editor with built-in Git, debugging, and extension support.",
+    "What are common VS Code shortcuts?": "Ctrl + P (quick open), Ctrl + Shift + F (global search), Ctrl + ` (terminal), F8 (next error), Ctrl + / (comment line).",
+    "What is agile development?": "Agile is a software development methodology that emphasizes iterative progress, collaboration, and continuous delivery.",
+    "What is a pull request?": "A pull request is a request to merge your changes into the main branch of a project, usually reviewed by others before approval.",
+    "What is a unit test?": "A unit test checks individual components of code (like functions or methods) to ensure they work as expected.",
+    "How to write clean code?": "Use clear variable names, keep functions small, avoid duplication, and follow consistent formatting and coding standards.",
+    "How to deal with imposter syndrome as a developer?": "Remember that learning never stops in tech. Focus on progress, celebrate wins, and ask questions freely. You're not alone.",
+    "What is Stack Overflow?": "Stack Overflow is a Q&A website for programmers to ask and answer technical coding questions.",
+    "How to Google like a developer?": "Use specific keywords, include error messages, filter by site (e.g., site:stackoverflow.com), and read official docs when possible.",
+    "How to write a good commit message?": "Use a short, clear summary in present tense (e.g., 'Fix login bug'). Optionally add a body to explain why.",
+    "What is CI/CD?": "CI (Continuous Integration) and CD (Continuous Deployment) are practices that automate code testing and deployment for faster, safer releases.",
+    "What is Artificial Intelligence (AI)?": "AI is the simulation of human intelligence in machines programmed to think and learn like humans.",
+    "What is Machine Learning?": "Machine Learning is a subset of AI where computers learn from data to make decisions or predictions without being explicitly programmed.",
+    "What is Deep Learning?": "Deep Learning is a type of machine learning that uses neural networks with many layers to analyze complex patterns in data.",
+    "What is a neural network?": "A neural network is a set of algorithms modeled loosely after the human brain that is designed to recognize patterns.",
+    "What is supervised learning?": "Supervised learning is a type of machine learning where the model is trained on labeled data.",
+    "What is unsupervised learning?": "Unsupervised learning involves training a model on data without labeled responses, discovering hidden patterns.",
+    "What is reinforcement learning?": "Reinforcement learning is a machine learning approach where an agent learns to make decisions by performing actions and receiving rewards.",
+    "What is Natural Language Processing (NLP)?": "NLP is a branch of AI focused on enabling computers to understand, interpret, and generate human language.",
+    "What is computer vision?": "Computer vision is a field of AI that enables machines to interpret and make decisions based on visual data like images and videos.",
+    "What are common AI applications?": "AI is used in speech recognition, image recognition, recommendation systems, autonomous vehicles, chatbots, and more.",
+    "What is overfitting in machine learning?": "Overfitting occurs when a model learns the training data too well, including noise, and performs poorly on new data.",
+    "What is the difference between AI, Machine Learning, and Deep Learning?": "AI is the broad concept of machines performing intelligent tasks. Machine Learning is a subset focused on learning from data, and Deep Learning is a further subset using deep neural networks.",
+    "What is a dataset in AI?": "A dataset is a collection of data used to train and test AI models.",
+    "What is feature engineering?": "Feature engineering is the process of selecting, modifying, or creating variables (features) to improve the performance of machine learning models.",
+    "What is a training set?": "The training set is the portion of a dataset used to train an AI or machine learning model.",
+    "What is a test set?": "The test set is a separate portion of the data used to evaluate the performance of a trained model.",
+    "What is transfer learning?": "Transfer learning involves using a pre-trained model on a new, related task to save time and resources.",
+    "What is an AI model?": "An AI model is a mathematical representation trained to perform a specific task, such as classification or prediction.",
+    "What is a chatbot?": "A chatbot is an AI application designed to simulate human conversation through text or voice interactions.",
+    "What is GPT?": "GPT (Generative Pre-trained Transformer) is a family of large language models developed by OpenAI for natural language understanding and generation.",
+    "What is the Turing Test?": "The Turing Test is a measure of a machine’s ability to exhibit intelligent behavior indistinguishable from a human.",
+    "What is bias in AI?": "Bias in AI occurs when a model produces systematically prejudiced results due to biased training data or algorithms.",
+    "What is ethical AI?": "Ethical AI involves designing and deploying AI systems that are fair, transparent, and respect user privacy.",
+    "What is explainable AI (XAI)?": "Explainable AI refers to techniques that make AI decisions understandable to humans.",
+    "What is reinforcement learning used for?": "It is used in robotics, gaming, recommendation systems, and autonomous vehicles for decision making in dynamic environments.",
+    "How do AI chatbots work?": "AI chatbots use NLP to understand user inputs, and machine learning or rule-based systems to generate responses.",
+    "What programming languages are popular for AI?": "Python, R, Java, and C++ are widely used due to their libraries and frameworks supporting AI development.",
+    "What are popular AI frameworks?": "TensorFlow, PyTorch, Keras, Scikit-learn, and OpenAI’s Gym are some popular AI and machine learning frameworks.",
+    "What is a convolutional neural network (CNN)?": "CNNs are deep learning models primarily used for image and video recognition.",
+    "What is the difference between AI and automation?": "Automation refers to technology performing repetitive tasks without intelligence, while AI involves machines making decisions or learning.",
+    "Hello": "Hi there! How can I help you today?",
+    "Hi": "Hello! How are you doing?",
+    "Hey": "Hey! Hope you're having a great day.",
+    "Good morning": "Good morning! How can I assist you?",
+    "Good afternoon": "Good afternoon! What can I do for you?",
+    "Good evening": "Good evening! How can I help you today?",
+    "How are you?": "I'm just a program, but I'm here to help you!",
+    "What's up?": "Not much! How can I assist you?",
+    "How's it going?": "Everything's running smoothly. How can I help?",
+    "Bye": "Goodbye! Have a great day!",
+    "Goodbye": "See you later! Take care.",
+    "See you": "Bye! Looking forward to our next chat.",
+    "Thanks": "You're welcome!",
+    "Thank you": "Anytime! Happy to help.",
+    "Thank you so much": "My pleasure!",
+    "Sorry": "No problem! How can I assist you?",
+    "I'm sorry": "It's okay! What can I do to help?",
+    "Incorrect": "I see. Let me try to correct that.",
+    "Can you help me?": "Of course! What do you need help with?",
+    "What services do you offer?": "I can provide information, answer questions, and assist with tasks.",
+    "Tell me a joke": "Why did the computer go to the doctor? Because it caught a virus!",
+    "What can you do?": "I can answer questions, provide guidance, and help with many topics.",
+    "Who are you?": "I'm a friendly AI assistant here to help you.",
+    "Are you human?": "No, I'm an AI designed to assist you.",
+    "What's your name?": "I'm your AI assistant. You can call me ChatGPT.",
+    "How old are you?": "I don't have an age, but I've been trained on lots of knowledge!",
+    "Where are you from?": "I exist in the digital world, not a specific location.",
+    "Nice to meet you": "Nice to meet you too!",
+    "Pleased to meet you": "Likewise! How can I help you today?",
+    "Welcome": "Thank you! How can I assist you?",
+    "Good to see you": "Good to see you too!",
+    "How can I contact support?": "You can contact support via email, chat, or phone depending on the service.",
+    "What is your purpose?": "My purpose is to assist you with questions and tasks.",
+    "Can you answer questions?": "Yes! Ask me anything, and I'll do my best to help.",
+    "Do you speak English?": "Yes, I communicate in English.",
+    "Do you speak other languages?": "I can understand multiple languages but may respond best in English.",
+    "Are you free to chat?": "Absolutely! I'm always here to chat.",
+    "Can you provide advice?": "Yes! I can give guidance on many topics.",
+    "What is AI?": "AI stands for Artificial Intelligence, technology designed to simulate human intelligence.",
+    "What is machine learning?": "Machine learning is a type of AI where computers learn from data.",
+    "Do you learn?": "I learn from my training data and improve over time, but I don’t learn from individual chats.",
+    "Can you make mistakes?": "Yes, sometimes I might not get things perfectly right.",
+    "Are you smart?": "I try my best to provide helpful answers!",
+    "What is your favorite color?": "I don’t have favorites, but I like all colors equally!",
+    "Do you have emotions?": "I don't have emotions, but I can understand human feelings.",
+    "Can you play games?": "I can suggest games or simulate text-based games with you.",
+    "Tell me something interesting": "Did you know honey never spoils? Archaeologists have found edible honey in ancient tombs!",
+    "Can you help me learn?": "Yes! I can provide explanations, examples, and resources.",
+    "Can you write code?": "Yes, I can generate code snippets in many programming languages.",
+    "What's your favorite food?": "I don't eat, but I know a lot about different foods!",
+    "Are you funny?": "I try to be! Want to hear a joke?",
+    "What's the time?": "I don’t have real-time awareness, but you can check your device clock.",
+    "Can you set reminders?": "I can't set reminders, but I can suggest ways to do it on your device.",
+    "Do you sleep?": "Nope! I'm always awake and ready to help.",
+    "Can you sing?": "I can't sing, but I can write lyrics or suggest songs.",
+    "Can you tell me a story?": "Sure! I can create short or long stories on any topic.",
+    "What is the weather?": "I don’t have real-time weather info, but you can check online sources.",
+    "Are you available 24/7?": "Yes! I'm always here to chat whenever you need.",
+    "Can you do math?": "Yes! I can solve math problems step by step.",
+    "Do you know history?": "Yes, I have knowledge of historical events and figures.",
+    "Do you know science?": "Yes, I can answer questions about physics, chemistry, biology, and more.",
+    "Can you give tips for health?": "I can provide general health tips, but always consult a professional for personal advice.",
+    "Do you know jokes?": "Yes! I can share jokes, puns, or riddles.",
+    "Do you know quotes?": "Yes! I can provide motivational, famous, or funny quotes.",
+    "Can you recommend books?": "Absolutely! I can suggest books based on your interests.",
+    "Can you recommend movies?": "Yes! I can suggest movies from various genres.",
+    "Do you know news?": "I can provide general information, but I may not have real-time news updates.",
+    "Can you speak formally?": "Yes, I can adjust my language to be formal or casual.",
+    "Can you speak casually?": "Yes, I can chat in a friendly, informal style.",
+    "Do you know music?": "Yes! I can answer questions about artists, genres, and songs.",
+    "Do you know sports?": "Yes, I can provide information on teams, rules, and famous athletes.",
+    "Do you understand emotions?": "I can recognize emotional context in text and respond appropriately.",
+    "Can you translate?": "I can help translate text between many languages.",
+    "Can you summarize?": "Yes! I can summarize articles, paragraphs, or text for you.",
+    "Can you explain concepts?": "Absolutely! I can break down topics step by step.",
+    "Can you give examples?": "Yes! I can provide examples to clarify ideas.",
+    "Can you generate ideas?": "Sure! I can brainstorm ideas for projects, writing, or activities.",
+    "Can you suggest solutions?": "Yes! I can propose solutions based on the problem you describe.",
+    "Can you chat casually?": "Of course! Let's have a friendly conversation.",
+    "Can you provide definitions?": "Yes! I can define words, concepts, and technical terms.",
+    "Can you help with homework?": "Yes, I can guide you and explain concepts, but I won't just give answers.",
+    "Can you provide instructions?": "Yes, I can give step-by-step guidance for tasks.",
+    "Can you help me code?": "Absolutely! I can write code snippets and debug examples.",
+    "Can you help me study?": "Yes, I can create summaries, quizzes, or flashcards.",
+    "Can you generate text?": "Yes! I can write essays, stories, emails, and more.",
+    "Can you answer riddles?": "Yes! I love riddles. Try me.",
+    "Can you teach languages?": "I can provide lessons, examples, and practice exercises for multiple languages.",
+    "Can you provide examples in Python?": "Yes! I can write Python code examples for various tasks.",
+    "Can you provide examples in JavaScript?": "Sure! I can provide JS code snippets and explanations.",
+    "Can you explain AI?": "AI is technology designed to perform tasks that typically require human intelligence.",
+    "Can you explain ML?": "Machine Learning is a subset of AI where models learn patterns from data.",
+    "Can you provide learning resources?": "Yes! I can suggest books, websites, and tutorials for learning.",
+    "Can you help with research?": "I can help find information, summarize, and organize content.",
+    "Can you help with planning?": "Yes! I can assist with schedules, to-do lists, and project plans.",
+    "Can you provide feedback?": "Yes, I can give constructive feedback on text, code, or ideas.",
+    "Can you provide tips for productivity?": "Sure! Use focused work sessions, take breaks, and prioritize tasks.",
+    "Can you apologize?": "I'm sorry for any confusion! How can I clarify?",
+    "Can you greet?": "Hello! Nice to meet you!",
+    "how can I contact you?": "You can reach out through the platform you're using to chat with me.",
+    "Can you say goodbye?": "Goodbye! Take care and see you next time!",
+    "Can you say thanks?": "Thank you! I'm happy to help."
+}
 
-// Send button click
-document.getElementById("send").addEventListener("click", sendMessage);
-
-// Enter key
-userInputField.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        sendMessage();
-    }
-});
+    // add the rest of your questions similarly...
 
 function sendMessage() {
     const userInput = userInputField.value.trim();
     if (!userInput) {
-        alert("Please type a message...");
+        alert("Please type a message about Power BI or Business Intelligence.");
         return;
     }
 
-    // Display user message
-    chatbox.innerHTML += `<div><strong style="color:#007bff;">You:</strong> ${userInput}</div>`;
-    // Clear input
-    userInputField.value = "";
+chatbox.innerHTML += `<div><strong style="color:#007bff;">You:</strong> ${userInput}</div>`;
+userInputField.value = "";
 
-    // Bot response logic (simplified example)
-    let botResponse = "Sorry, I didn't understand that.";
+    const inputLower = userInput.toLowerCase();
+    let botResponse = "Sorry, I didn't quite understand that. Please stick with Business Intelligence questions.";
 
-    if (/hello|hi/i.test(userInput)) botResponse = "Hi! How can I help you today?";
-    else if (/power bi/i.test(userInput)) botResponse = "Power BI is a Microsoft BI tool.";
-    else if (/power platform/i.test(userInput)) botResponse = "Power Platform includes Power BI, Power Apps, Power Automate.";
-    else if (/fabric/i.test(userInput)) botResponse = "Microsoft Fabric is a unified data platform.";
+    // 1. Check FAQ dictionary for exact match
+    if (faqData[inputLower]) {
+        botResponse = faqData[inputLower];
+    } 
+    // 2. Predefined keyword-based responses
+    else if (/hello|hi/i.test(userInput)) {
+        botResponse = "Hi! How can I help you today?";
+    } else if (/power bi/i.test(userInput)) {
+        botResponse = "Power BI is a Microsoft BI tool.";
+    } else if (/power platform/i.test(userInput)) {
+        botResponse = "Power Platform includes Power BI, Power Apps, Power Automate.";
+    } else if (/fabric/i.test(userInput)) {
+        botResponse = "Microsoft Fabric is a unified data platform.";
+    }
+    // 3. Service-related keywords
+    else if (/(services|provide|capabilities|help)/i.test(userInput)) {
+        botResponse = "I am a chatbot developed by Girum and I can answer questions related to Power BI, Microsoft Fabric, and AI related to Power BI.";
+    }
+    // 4. Contact/reach keywords
+    else if (/(how can i reach|contact|message you|get in touch)/i.test(userInput)) {
+        botResponse = "Please send your message in the top menu bar with your name, email, and your message. Our team will get back to you.";
+    }
+    // 5. Inappropriate words
+    else if (/(stupid|idiot|dumb|nonsense|silly|useless|trash)/i.test(userInput)) {
+        botResponse = "Sorry, I can't answer this. Please stick with business intelligence questions.";
+    }
 
-    // Display bot response
-    chatbox.innerHTML += `<div><strong style="color:#007bff;">${botName}:</strong> ${botResponse}</div>`;
-
-    // Scroll to bottom
-    chatbox.scrollTop = chatbox.scrollHeight;
+chatbox.innerHTML += `<div><strong style="color:#007bff;">${botName}:</strong> ${botResponse}</div>`;
+chatbox.scrollTop = chatbox.scrollHeight;
 }
